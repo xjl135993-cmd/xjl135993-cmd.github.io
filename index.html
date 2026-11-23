@@ -3,47 +3,1034 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Webpage</title>
+
+    <title>XJTLU Taicang | University of the Future</title>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050816;
+            color: white;
+            overflow-x: hidden;
         }
 
-        h1 {
-            color: #333;
+        /* ---------- Background glow ---------- */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: #6c2cff;
+            filter: blur(180px);
+            opacity: 0.15;
+            top: -250px;
+            left: -200px;
+            z-index: -1;
         }
 
-        .section {
-            margin-top: 30px;
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #00c8ff;
+            filter: blur(180px);
+            opacity: 0.12;
+            bottom: -200px;
+            right: -150px;
+            z-index: -1;
         }
+
+        /* ---------- Navigation ---------- */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+
+            background: rgba(5, 8, 22, 0.55);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #8b63ff;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #c9cce0;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* ---------- Hero ---------- */
+
+        .hero {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5,8,22,0.96) 0%,
+                    rgba(5,8,22,0.80) 43%,
+                    rgba(5,8,22,0.30) 100%
+                ),
+                url("https://www.hpp.com/fileadmin/_processed_/8/6/csm_218088_N67-1_40a72ee3ca.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            display: flex;
+            align-items: center;
+            padding: 120px 8% 60px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 9px 16px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50px;
+            color: #cfd5ff;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 8vw, 115px);
+            line-height: 0.88;
+            letter-spacing: -5px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #9d8cff,
+                #62dbff
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #c3c6d8;
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            margin-top: 38px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: linear-gradient(135deg, #6945ff, #00a8ff);
+        }
+
+        .secondary {
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            right: 7%;
+            color: #8e93aa;
+            font-size: 12px;
+            letter-spacing: 2px;
+            writing-mode: vertical-rl;
+        }
+
+        /* ---------- Shared sections ---------- */
+
+        section {
+            padding: 110px 8%;
+        }
+
+        .section-label {
+            color: #7c90ff;
+            letter-spacing: 3px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 65px);
+            max-width: 900px;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
+        }
+
+        .section-intro {
+            max-width: 750px;
+            color: #9ca1b8;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        /* ---------- Statistics ---------- */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 0 8%;
+        }
+
+        .stat {
+            padding: 55px 25px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, white, #778cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-text {
+            margin-top: 10px;
+            color: #8c91a8;
+            font-size: 14px;
+        }
+
+        /* ---------- Philosophy ---------- */
+
+        .philosophy {
+            position: relative;
+        }
+
+        .concept-grid {
+            margin-top: 65px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .concept {
+            position: relative;
+            padding: 35px 22px;
+            min-height: 210px;
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.08),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 18px;
+
+            transition: 0.4s;
+            overflow: hidden;
+        }
+
+        .concept::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #604cff;
+            filter: blur(70px);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .concept:hover {
+            transform: translateY(-10px);
+            border-color: rgba(125,110,255,0.7);
+        }
+
+        .concept:hover::before {
+            opacity: 0.5;
+        }
+
+        .concept-number {
+            color: #6f7590;
+            font-size: 12px;
+            margin-bottom: 50px;
+        }
+
+        .concept h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .concept p {
+            color: #8f94aa;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ---------- Architecture ---------- */
+
+        .architecture {
+            background: #080c1d;
+        }
+
+        .architecture-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .orbit {
+            width: 480px;
+            height: 480px;
+            max-width: 100%;
+            aspect-ratio: 1 / 1;
+
+            border: 1px solid rgba(120,135,255,0.4);
+            border-radius: 50%;
+
+            margin: auto;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow:
+                0 0 80px rgba(85,80,255,0.12),
+                inset 0 0 80px rgba(0,190,255,0.05);
+        }
+
+        .orbit::before {
+            content: "";
+            width: 72%;
+            height: 72%;
+            position: absolute;
+
+            border: 1px dashed rgba(255,255,255,0.18);
+            border-radius: 50%;
+
+            animation: spin 25s linear infinite;
+        }
+
+        .orbit-center {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 30% 30%,
+                    #7a60ff,
+                    #131938 65%
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            box-shadow: 0 0 60px rgba(100,80,255,0.35);
+            z-index: 2;
+        }
+
+        .orbit-center h3 {
+            font-size: 21px;
+            line-height: 1.3;
+        }
+
+        .orbit-point {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 20px #6bbdff;
+        }
+
+        .p1 { top: 2%; left: 48%; }
+        .p2 { top: 19%; right: 10%; }
+        .p3 { bottom: 22%; right: 5%; }
+        .p4 { bottom: 2%; left: 48%; }
+        .p5 { bottom: 19%; left: 8%; }
+        .p6 { top: 20%; left: 8%; }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .architecture-text h2 {
+            font-size: 50px;
+            margin-bottom: 25px;
+        }
+
+        .architecture-text p {
+            color: #9ca1b8;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        /* ---------- Schools ---------- */
+
+        .schools-grid {
+            margin-top: 60px;
+
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .school {
+            padding: 30px;
+
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+
+            background: rgba(255,255,255,0.025);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            transition: 0.3s;
+        }
+
+        .school:hover {
+            background: rgba(92,76,255,0.10);
+            border-color: #6455ff;
+            transform: translateX(5px);
+        }
+
+        .school h3 {
+            font-size: 18px;
+            max-width: 75%;
+        }
+
+        .school span {
+            color: #707a9d;
+            font-size: 12px;
+        }
+
+        /* ---------- Big statement ---------- */
+
+        .statement {
+            min-height: 75vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(86,63,255,0.18),
+                    transparent 55%
+                );
+        }
+
+        .statement-small {
+            color: #7e86a8;
+            letter-spacing: 4px;
+            font-size: 12px;
+            margin-bottom: 30px;
+        }
+
+        .statement h2 {
+            font-size: clamp(48px, 8vw, 105px);
+            max-width: 1200px;
+            line-height: 0.98;
+            letter-spacing: -5px;
+        }
+
+        .statement h2 span {
+            color: #7770ff;
+        }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            padding: 55px 8%;
+            border-top: 1px solid rgba(255,255,255,0.1);
+
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+
+            color: #747a91;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        footer a {
+            color: #949cff;
+            text-decoration: none;
+        }
+
+        /* ---------- Reveal animation ---------- */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- Mobile ---------- */
+
+        @media (max-width: 900px) {
+
+            nav ul {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .architecture-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .schools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .orbit {
+                width: 360px;
+                height: 360px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                border-right: none;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <h1>Welcome to My Personal Webpage</h1>
+    <!-- Navigation -->
 
-    <div class="section">
-        <h2>About Me</h2>
-        <p>
-            Hello! I am a student at Xi'an Jiaotong-Liverpool University.
-            This webpage was created for CSI205TC Networking and Distributed Computing Coursework 1.
-        </p>
+    <nav>
+
+        <div class="logo">
+            XJTLU <span>TC</span>
+        </div>
+
+        <ul>
+            <li><a href="#vision">Vision</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#schools">Schools</a></li>
+            <li><a href="#future">Future</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- Hero -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="tag">
+                XJTLU ENTREPRENEUR COLLEGE · TAICANG
+            </div>
+
+            <h1>
+                NOT JUST<br>
+                A CAMPUS.<br>
+                <span>A PROTOTYPE.</span>
+            </h1>
+
+            <p>
+                In Taicang, education meets industry,
+                technology meets humanity, and the university
+                becomes a living experiment for the future.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#vision" class="button primary">
+                    Explore the Campus
+                </a>
+
+                <a href="#schools" class="button secondary">
+                    Discover the Schools
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="scroll-hint">
+            SCROLL TO EXPLORE ↓
+        </div>
+
+    </header>
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+        <div class="stat reveal">
+            <div class="stat-number">2022</div>
+            <div class="stat-text">
+                Taicang campus opened
+            </div>
+        </div>
+
+        <div class="stat reveal">
+            <div class="stat-number">7</div>
+            <div class="stat-text">
+                Industry-themed schools
+            </div>
+        </div>
+
+        <div class="stat reveal">
+            <div class="stat-number">1 km</div>
+            <div class="stat-text">
+                Circular connecting structure
+            </div>
+        </div>
+
+        <div class="stat reveal">
+            <div class="stat-number">∞</div>
+            <div class="stat-text">
+                Possibilities for the future
+            </div>
+        </div>
+
     </div>
 
-    <div class="section">
-        <h2>About This Website</h2>
-        <p>
-            This website is hosted using GitHub Pages.
-            It will be used to perform basic network analysis including
-            DNS lookup, ping, traceroute, and network packet analysis.
+
+    <!-- Vision -->
+
+    <section class="philosophy" id="vision">
+
+        <div class="section-label reveal">
+            01 / CAMPUS DNA
+        </div>
+
+        <h2 class="section-title reveal">
+            A university designed around connection,
+            not separation.
+        </h2>
+
+        <p class="section-intro reveal">
+            XJTLU Entrepreneur College (Taicang) explores a
+            different model of higher education through
+            Syntegrative Education. Students, academics,
+            industry and society are brought into the same
+            ecosystem rather than existing in isolated spaces.
         </p>
-    </div>
+
+
+        <div class="concept-grid">
+
+            <div class="concept reveal">
+
+                <div class="concept-number">01</div>
+
+                <h3>Future</h3>
+
+                <p>
+                    Education designed for a world shaped by
+                    disruptive technology and rapid change.
+                </p>
+
+            </div>
+
+
+            <div class="concept reveal">
+
+                <div class="concept-number">02</div>
+
+                <h3>Symbiosis</h3>
+
+                <p>
+                    University, industry and society develop
+                    through interaction rather than isolation.
+                </p>
+
+            </div>
+
+
+            <div class="concept reveal">
+
+                <div class="concept-number">03</div>
+
+                <h3>Sharing</h3>
+
+                <p>
+                    Knowledge and space become networks for
+                    exchange, collaboration and creation.
+                </p>
+
+            </div>
+
+
+            <div class="concept reveal">
+
+                <div class="concept-number">04</div>
+
+                <h3>Technology</h3>
+
+                <p>
+                    AI, robotics, IoT and emerging technologies
+                    become part of the learning environment.
+                </p>
+
+            </div>
+
+
+            <div class="concept reveal">
+
+                <div class="concept-number">05</div>
+
+                <h3>Ecology</h3>
+
+                <p>
+                    The physical campus connects architecture,
+                    people and environment as one system.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Architecture -->
+
+    <section class="architecture" id="architecture">
+
+        <div class="architecture-layout">
+
+            <div class="orbit reveal">
+
+                <div class="orbit-center">
+                    <h3>
+                        SYNTEGRATION<br>
+                        +<br>
+                        SYMBIOSIS
+                    </h3>
+                </div>
+
+                <div class="orbit-point p1"></div>
+                <div class="orbit-point p2"></div>
+                <div class="orbit-point p3"></div>
+                <div class="orbit-point p4"></div>
+                <div class="orbit-point p5"></div>
+                <div class="orbit-point p6"></div>
+
+            </div>
+
+
+            <div class="architecture-text">
+
+                <div class="section-label reveal">
+                    02 / ARCHITECTURE
+                </div>
+
+                <h2 class="reveal">
+                    The circle is the idea.
+                </h2>
+
+                <p class="reveal">
+                    The Taicang campus is organised around
+                    an extraordinary circular structure connecting
+                    its industry-themed schools.
+                </p>
+
+                <p class="reveal">
+                    Instead of treating disciplines as separate
+                    islands, the campus creates physical connections
+                    between different fields, people and ideas.
+                </p>
+
+                <p class="reveal">
+                    The architecture therefore becomes more than
+                    a collection of buildings. It becomes a visual
+                    expression of the College's philosophy:
+                    connection creates possibility.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Schools -->
+
+    <section id="schools">
+
+        <div class="section-label reveal">
+            03 / INDUSTRY MEETS EDUCATION
+        </div>
+
+        <h2 class="section-title reveal">
+            Built around industries that are shaping tomorrow.
+        </h2>
+
+        <p class="section-intro reveal">
+            Taicang's industry-themed schools are organised around
+            emerging sectors rather than traditional disciplinary
+            boundaries, connecting academic knowledge with real
+            industrial challenges.
+        </p>
+
+
+        <div class="schools-grid">
+
+            <div class="school reveal">
+                <h3>
+                    Academy of Artificial Intelligence
+                    and Advanced Technology
+                </h3>
+                <span>AI</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    School of Internet of Things
+                </h3>
+                <span>IOT</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    School of Robotics
+                </h3>
+                <span>ROBOTICS</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    School of CHIPS
+                </h3>
+                <span>MICROELECTRONICS</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    School of Intelligent Manufacturing Ecosystem
+                </h3>
+                <span>INDUSTRY 4.0</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    School of Intelligent Finance and Business
+                </h3>
+                <span>BUSINESS</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    Academy of Film and Creative Technology
+                </h3>
+                <span>CREATIVE TECH</span>
+            </div>
+
+
+            <div class="school reveal">
+                <h3>
+                    Entrepreneurship and Enterprise Hub
+                </h3>
+                <span>INNOVATION</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Future -->
+
+    <section class="statement" id="future">
+
+        <div class="statement-small reveal">
+            UNIVERSITY OF THE FUTURE
+        </div>
+
+        <h2 class="reveal">
+            What if a university was not built
+            to follow the future —
+            but to <span>prototype it?</span>
+        </h2>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <div>
+            XJTLU Entrepreneur College (Taicang)<br>
+            A student-created webpage for CSI205TC.
+        </div>
+
+        <div>
+            Information references:<br>
+
+            <a href="https://www.xjtlu.edu.cn/en/study/departments/entrepreneur-college-taicang/"
+               target="_blank">
+                Xi'an Jiaotong-Liverpool University
+            </a>
+
+            <br>
+
+            <a href="https://www.xjtlu.edu.cn/en/campus-life/our-campus"
+               target="_blank">
+                XJTLU Campus Information
+            </a>
+        </div>
+
+    </footer>
+
+
+    <!-- Simple scroll animation -->
+
+    <script>
+
+        const elements = document.querySelectorAll(".reveal");
+
+        const observer = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        elements.forEach(element => {
+            observer.observe(element);
+        });
+
+    </script>
 
 </body>
 </html>
